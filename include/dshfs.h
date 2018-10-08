@@ -6,6 +6,8 @@
 #include "dshfs/filename.h"
 #include "dshfs/file.h"
 #include "dshfs/filesystem.h"
+#include "dshfs/filestream.h"
+#include "dshfs/filebuf.h"
 
 
 #ifdef _MSC_VER

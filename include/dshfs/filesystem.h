@@ -4,6 +4,7 @@
 #include <string>
 #include "filemode.h"
 #include "file.h"
+#include <iostream>
 
 namespace dshfs
 {

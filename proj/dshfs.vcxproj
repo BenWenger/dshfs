@@ -139,8 +139,9 @@
     <ClInclude Include="..\include\dshfs\error.h" />
     <ClInclude Include="..\include\dshfs\exportdefine.h" />
     <ClInclude Include="..\include\dshfs\file.h" />
+    <ClInclude Include="..\include\dshfs\filebuf.h" />
     <ClInclude Include="..\include\dshfs\filemode.h" />
-    <ClInclude Include="..\include\dshfs\oldfile.h" />
+    <ClInclude Include="..\include\dshfs\filestream.h" />
     <ClInclude Include="..\include\dshfs\filename.h" />
     <ClInclude Include="..\include\dshfs\filesystem.h" />
     <ClInclude Include="..\src\windows\windows_diskfilesystem.h" />
@@ -148,7 +149,9 @@
     <ClInclude Include="..\src\windows\windows_diskfile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\filebuf.cpp" />
     <ClCompile Include="..\src\filename.cpp" />
+    <ClCompile Include="..\src\filestream.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfile.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfilesystem.cpp" />
   </ItemGroup>
