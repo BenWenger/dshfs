@@ -1,4 +1,4 @@
-
+﻿
 #include <iostream>
 #include "dshfs.h"
 
@@ -9,15 +9,17 @@ int main()
     try
     {
         auto file = fs.openFile("test.txt");
-        if(file->isOpen())
-            std::cout << "File opened OK!\n";
-        else
-            std::cout << "ERROR\n";
+        char utf8name[40];
+        auto len = file->read(utf8name, 39);
+        utf8name[len] = '\0';
 
-        char buffer[15];
-        file->read(buffer, 14);
-        buffer[14] = 0;
-        std::cout << "file contents:  " << buffer << '\n';
+
+        file = fs.openFile(utf8name);
+        char dat[100];
+        len = file->read(dat, 99);
+        dat[len] = '\0';
+
+        std::cout << "Success:  " << dat;
     }
     catch(Error& e)
     {
