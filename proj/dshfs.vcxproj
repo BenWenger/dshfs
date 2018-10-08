@@ -139,16 +139,18 @@
     <ClInclude Include="..\include\dshfs\error.h" />
     <ClInclude Include="..\include\dshfs\exportdefine.h" />
     <ClInclude Include="..\include\dshfs\file.h" />
+    <ClInclude Include="..\include\dshfs\filemode.h" />
+    <ClInclude Include="..\include\dshfs\oldfile.h" />
     <ClInclude Include="..\include\dshfs\filename.h" />
     <ClInclude Include="..\include\dshfs\filesystem.h" />
+    <ClInclude Include="..\src\windows\windows_diskfilesystem.h" />
     <ClInclude Include="..\src\windows\winheader.h" />
+    <ClInclude Include="..\src\windows\windows_diskfile.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\filename.cpp" />
-    <ClCompile Include="..\src\filesystem.cpp" />
-    <ClCompile Include="..\src\windows\file_win.cpp" />
-    <ClCompile Include="..\src\windows\filename_win.cpp" />
-    <ClCompile Include="..\src\windows\filesystem_win.cpp" />
+    <ClCompile Include="..\src\windows\windows_diskfile.cpp" />
+    <ClCompile Include="..\src\windows\windows_diskfilesystem.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

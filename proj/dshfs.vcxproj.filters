@@ -22,9 +22,6 @@
     <ClInclude Include="..\include\dshfs\filesystem.h">
       <Filter>Public\dshfs</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\dshfs\file.h">
-      <Filter>Public\dshfs</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\dshfs\filename.h">
       <Filter>Public\dshfs</Filter>
     </ClInclude>
@@ -37,21 +34,30 @@
     <ClInclude Include="..\include\dshfs\error.h">
       <Filter>Public\dshfs</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\dshfs\oldfile.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\windows\windows_diskfile.h">
+      <Filter>Source Files\windows</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\dshfs\file.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\dshfs\filemode.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\windows\windows_diskfilesystem.h">
+      <Filter>Source Files\windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\filename.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\windows\filename_win.cpp">
+    <ClCompile Include="..\src\windows\windows_diskfile.cpp">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\filesystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\windows\filesystem_win.cpp">
-      <Filter>Source Files\windows</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\windows\file_win.cpp">
+    <ClCompile Include="..\src\windows\windows_diskfilesystem.cpp">
       <Filter>Source Files\windows</Filter>
     </ClCompile>
   </ItemGroup>
