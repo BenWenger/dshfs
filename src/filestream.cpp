@@ -4,8 +4,8 @@
 namespace dshfs
 {
 
-    FileStream::FileStream(const std::string& path, int mode, bool convertLineBreaks)
-        : std::iostream( buffer = new FileBuf(path,mode,convertLineBreaks) )
+    FileStream::FileStream(const std::string& path, int mode)
+        : std::iostream( buffer = new FileBuf(path,mode) )
     {}
 
     FileStream::~FileStream()

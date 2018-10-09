@@ -11,7 +11,7 @@ namespace dshfs
     class FileBuf : public std::filebuf
     {
     public:
-        DLL FileBuf(const std::string& path, int mode, bool convertLineBreaks);
+        DLL FileBuf(const std::string& path, int mode);
         DLL ~FileBuf();
 
     protected:
@@ -24,18 +24,25 @@ namespace dshfs
     private:
         FileBuf(const FileBuf&) = delete;
         FileBuf& operator = (const FileBuf&) = delete;
+        
+        enum class Mode
+        {
+            Neutral,
+            Reading,
+            Writing
+        };
 
-        static const int        bufferSize = 10;
+        static const int        bufferSize = 1024;
         const int               eofVal;
         File::Ptr               file;
+        Mode                    curMode;
         char                    buffer[bufferSize+1];
-        bool                    inTextMode;
 
-        bool    flushBuffer(int_type extra);
-        bool    flushBuffer()           { return flushBuffer(eofVal);       }
-        void    clearG()                { setg(nullptr,nullptr,nullptr);    }
-        void    clearP()                { setp(nullptr,nullptr);            }
-        void    clearPtrs()             { clearG(); clearP();               }
+        bool                    flushOutput(int_type extra);
+        bool                    flushInput();
+        bool                    flushAll(int_type extra);
+        bool                    flushAll()                      { return flushAll(eofVal);          }
+        void                    clearPtrs();
     };
 }
 

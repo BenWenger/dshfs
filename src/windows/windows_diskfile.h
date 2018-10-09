@@ -14,6 +14,8 @@ namespace dshfs
         virtual ~Windows_DiskFile() { close(); }
         virtual void                close() override;
         virtual bool                isOpen() const override;
+        virtual bool                isReadable() const override;
+        virtual bool                isWritable() const override;
         virtual pos_t               read(void* buf, pos_t size) override;
         virtual pos_t               write(const void* buf, pos_t size) override;
         
@@ -25,6 +27,7 @@ namespace dshfs
         static File::Ptr            open(const std::string& path, int flags);
 
         HANDLE                      handle;
+        bool                        canWrite;
     };
 }
 

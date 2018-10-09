@@ -19,6 +19,8 @@ namespace dshfs
         DLL virtual ~File()     {}
         DLL virtual void        close() = 0;
         DLL virtual bool        isOpen() const = 0;
+        DLL virtual bool        isReadable() const = 0;
+        DLL virtual bool        isWritable() const = 0;
         DLL virtual pos_t       read(void* buf, pos_t size) = 0;
         DLL virtual pos_t       write(const void* buf, pos_t size) = 0;
         

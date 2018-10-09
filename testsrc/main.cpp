@@ -20,7 +20,7 @@ void doStringTransform(std::iostream& strm)
     for(auto& x : s)    x += 1;
     std::cout << ": " << s << '\n';
     //strm.flush();
-    strm << s;
+    strm << s << '\n';
     //strm.flush();
 }
 
@@ -74,7 +74,7 @@ int main()
         CopyFileA("tester.txt", "thistest.txt", FALSE);
         CopyFileA("tester.txt", "thistest_control.txt", FALSE);
 
-        FileStream file("thistest.txt", FileMode::rwt);
+        FileStream file("thistest.txt", FileMode::rw);
         std::fstream ctrl("thistest_control.txt", std::ios_base::in | std::ios_base::out);
         if(ctrl.good())
             std::cout << "This is good!\n";

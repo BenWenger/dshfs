@@ -11,11 +11,22 @@ namespace dshfs
     Windows_DiskFile::Windows_DiskFile()
     {
         handle = INVALID_HANDLE_VALUE;
+        canWrite = false;
     }
 
     bool Windows_DiskFile::isOpen() const
     {
         return handle != INVALID_HANDLE_VALUE;
+    }
+
+    bool Windows_DiskFile::isReadable() const
+    {
+        return isOpen();
+    }
+
+    bool Windows_DiskFile::isWritable() const
+    {
+        return isOpen() && canWrite;
     }
 
     void Windows_DiskFile::close()
@@ -24,12 +35,13 @@ namespace dshfs
         {
             CloseHandle(handle);
             handle = INVALID_HANDLE_VALUE;
+            canWrite = false;
         }
     }
 
     File::pos_t Windows_DiskFile::read(void* buf, pos_t size)
     {
-        if(!isOpen())       return 0;
+        if(!isReadable())       return 0;
 
         auto ptr = reinterpret_cast<unsigned char*>(buf);
         pos_t total = 0;
@@ -50,7 +62,7 @@ namespace dshfs
     
     File::pos_t Windows_DiskFile::write(const void* buf, pos_t size)
     {
-        if(!isOpen())       return 0;
+        if(!isWritable())       return 0;
 
         auto ptr = reinterpret_cast<const unsigned char*>(buf);
         pos_t total = 0;
@@ -86,7 +98,7 @@ namespace dshfs
         in.QuadPart = pos;
         if(!SetFilePointerEx(handle, in, &out, movemethod))
             return -1;
-
+        
         return out.QuadPart;
     }
 
@@ -112,10 +124,12 @@ namespace dshfs
         DWORD access = GENERIC_READ;
         DWORD share = 0;
         DWORD creat = 0;
+        bool canWrite = false;
         
         if(flags & FileMode::Write)
         {
             // Writable
+            canWrite = true;
             access |= GENERIC_WRITE;
             switch(flags & (FileMode::Create | FileMode::Truncate | FileMode::FailIfExists))
             {
@@ -174,6 +188,7 @@ namespace dshfs
 
         auto file = std::make_unique<Windows_DiskFile>();
         file->handle = handle;
+        file->canWrite = canWrite;
         return std::move(file);
     }
 }

@@ -17,17 +17,17 @@ namespace dshfs
     {
         inline std::string wideToNarrow(const std::wstring& wide)
         {
-            auto len = WideCharToMultiByte(CP_UTF8, 0, wide.c_str(), wide.size(), nullptr, 0, nullptr, nullptr);
+            auto len = WideCharToMultiByte(CP_UTF8, 0, wide.c_str(), static_cast<int>(wide.size()), nullptr, 0, nullptr, nullptr);
             std::string narrow(len, '\0');
-            WideCharToMultiByte(CP_UTF8, 0, wide.c_str(), wide.size(), &narrow[0], narrow.size(), nullptr, nullptr);
+            WideCharToMultiByte(CP_UTF8, 0, wide.c_str(), static_cast<int>(wide.size()), &narrow[0], static_cast<int>(narrow.size()), nullptr, nullptr);
             return narrow;
         }
 
         inline std::wstring narrowToWide(const std::string& narrow)
         {
-            auto len = MultiByteToWideChar(CP_UTF8, 0, narrow.c_str(), narrow.size(), nullptr, 0);
+            auto len = MultiByteToWideChar(CP_UTF8, 0, narrow.c_str(), static_cast<int>(narrow.size()), nullptr, 0);
             std::wstring wide(len, L'\0');
-            MultiByteToWideChar(CP_UTF8, 0, narrow.c_str(), narrow.size(), &wide[0], wide.size());
+            MultiByteToWideChar(CP_UTF8, 0, narrow.c_str(), static_cast<int>(narrow.size()), &wide[0], static_cast<int>(wide.size()));
             return wide;
         }
 
