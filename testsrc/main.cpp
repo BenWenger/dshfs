@@ -7,7 +7,22 @@
 #include <cstdlib>
 #include <algorithm>
 
+#define NOMINMAX
+#include <Windows.h>
+
 using namespace dshfs;
+
+void doStringTransform(std::iostream& strm)
+{
+    std::string s;
+
+    std::getline(strm, s);
+    for(auto& x : s)    x += 1;
+    std::cout << ": " << s << '\n';
+    //strm.flush();
+    strm << s;
+    //strm.flush();
+}
 
 int main()
 {
@@ -26,7 +41,7 @@ int main()
         dat[len] = '\0';
 
         std::cout << "Success:  " << dat;*/
-
+        /*
         std::string things[4];
         int pages[4] = {0,1,2,3};
         std::random_shuffle(pages, pages+4);
@@ -44,7 +59,7 @@ int main()
         for(int i = 0; i < 4; ++i)
         {
             std::cout << things[i] << "   " << tells[i] << std::endl;
-        }
+        }*/
         
         /*
         std::string str;
@@ -55,6 +70,20 @@ int main()
             std::cout << str << '\n';
         }
         std::cout << ">>EOF<<" << std::endl;*/
+        
+        CopyFileA("tester.txt", "thistest.txt", FALSE);
+        CopyFileA("tester.txt", "thistest_control.txt", FALSE);
+
+        FileStream file("thistest.txt", FileMode::rwt);
+        std::fstream ctrl("thistest_control.txt", std::ios_base::in | std::ios_base::out);
+        if(ctrl.good())
+            std::cout << "This is good!\n";
+
+        for(int i = 0; i < 2; ++i)
+        {
+            doStringTransform(file);
+            //doStringTransform(ctrl);
+        }
     }
     catch(Error& e)
     {

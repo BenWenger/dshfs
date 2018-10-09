@@ -4,51 +4,82 @@
 
 namespace dshfs
 {
-    FileBuf::FileBuf(const std::string& path, int mode)
+    FileBuf::FileBuf(const std::string& path, int mode, bool convertLineBreaks)
         : std::filebuf( )
         , eofVal( traits_type::eof() )
         , file( FileSystem::getInstance().openFile(path,mode) )
+        , inTextMode(convertLineBreaks)
     {
-        setp(outBuf, outBuf + bufferSize);
-        setg(nullptr, nullptr, nullptr);
+        clearPtrs();
     }
 
     FileBuf::~FileBuf()
     {
+        try
+        {
+            flushBuffer();
+        }catch(...) {}
     }
     
     auto FileBuf::underflow() -> int_type
     {
-        auto siz = file->read(inBuf, bufferSize);
-        if(siz >= 0)
+        if(!flushBuffer())
         {
-            setg(inBuf, inBuf, inBuf + siz);
-            if(siz > 0)
-                return inBuf[0];
+            clearPtrs();
+            return eofVal;
         }
-        setg(nullptr, nullptr, nullptr);
+        clearP();
+        auto siz = file->read(buffer, bufferSize);
+        if(siz > 0)
+        {
+            if(inTextMode)
+            {
+                File::pos_t src = 1, dst = 0;
+                for(; src < siz; ++src)
+                {
+                    if(buffer[src-1] != '\r' || buffer[src] != '\n')
+                        ++dst;
+                    buffer[dst] = buffer[src];
+                }
+                // nasty case -- if the last character was '\r', we need to "unget" it
+                if(buffer[src-1] == '\r')
+                {
+                    --dst;
+                    file->seek(-1, File::Origin::Cur);  // TODO - dunno if this is a good idea
+                }
+            }
+            setg(buffer, buffer, buffer + siz);
+            return buffer[0];
+        }
+        clearG();
         return eofVal;
     }
     
     auto FileBuf::overflow(int_type ch) -> int_type
     {
-        if(flushOutput(ch))
-            return 0;
-        else
+        if(!flushBuffer(ch))
         {
-            setp(outBuf, outBuf);
+            clearPtrs();
             return eofVal;
         }
+        clearG();
+        setp(buffer, buffer + bufferSize);
+        return 0;
     }
     
     auto FileBuf::sync() -> int_type
     {
-        setg(nullptr,nullptr,nullptr);
-        return flushOutput(eofVal) ? 0 : -1;
+        int_type out = flushBuffer() ? 0 : -1;
+        clearPtrs();
+        return out;
     }
     
     auto FileBuf::seekoff(off_type off, std::ios_base::seekdir dir, std::ios_base::openmode md) -> pos_type
     {
+        if(!flushBuffer())
+            return -1;
+
+        clearPtrs();
         File::Origin mode;
         switch(dir)
         {
@@ -57,7 +88,6 @@ namespace dshfs
         case std::ios_base::end:    mode = File::Origin::End;       break;
         default:                    return -1;
         }
-        sync();
         return static_cast<pos_type>( file->seek( static_cast<File::pos_t>(off), mode ) );
     }
 
@@ -66,8 +96,9 @@ namespace dshfs
         return seekoff( static_cast<off_type>(pos), std::ios_base::beg, md );
     }
 
-    bool FileBuf::flushOutput(int_type extra)
+    bool FileBuf::flushBuffer(int_type extra)
     {
+        // 
         bool success = false;
         try
         {
