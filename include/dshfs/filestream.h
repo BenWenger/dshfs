@@ -11,7 +11,7 @@ namespace dshfs
     class FileStream : public std::iostream
     {
     public:
-        DLL FileStream(const std::string& path, int mode = FileMode::r);
+        DLL FileStream(const std::string& path, int mode = FileMode::rt);
         DLL virtual ~FileStream();
 
     private:

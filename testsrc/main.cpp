@@ -24,11 +24,34 @@ void doStringTransform(std::iostream& strm)
     //strm.flush();
 }
 
+std::string readFullTextFile(const std::string& filename)
+{
+    char buffer[1024];
+    auto file = fs.openFile(filename, FileMode::rt);
+    auto siz = file->read(buffer, 1023);
+    buffer[siz] = 0;
+
+    return std::string(buffer);
+}
+
 int main()
 {
     srand( (unsigned)time(nullptr) );
     try
-    {/*
+    {
+        auto a = readFullTextFile("textmode_a.txt");
+        auto b = readFullTextFile("textmode_b.txt");
+        auto c = readFullTextFile("textmode_c.txt");
+
+        if(a == b && b == c)
+            std::cout << "SUCCESS!!!!";
+        else
+            std::cout << "FAILURE!!!!!";
+
+        std::cout << "\n\n" << a << std::endl;
+        
+        
+        /*
         auto file = fs.openFile("test.txt");
         char utf8name[40];
         auto len = file->read(utf8name, 39);
@@ -70,11 +93,11 @@ int main()
             std::cout << str << '\n';
         }
         std::cout << ">>EOF<<" << std::endl;*/
-        
+        /*
         CopyFileA("tester.txt", "thistest.txt", FALSE);
         CopyFileA("tester.txt", "thistest_control.txt", FALSE);
 
-        FileStream file("thistest.txt", FileMode::rw);
+        FileStream file("thistest.txt", FileMode::rwt);
         std::fstream ctrl("thistest_control.txt", std::ios_base::in | std::ios_base::out);
         if(ctrl.good())
             std::cout << "This is good!\n";
@@ -83,7 +106,7 @@ int main()
         {
             doStringTransform(file);
             //doStringTransform(ctrl);
-        }
+        }*/
     }
     catch(Error& e)
     {

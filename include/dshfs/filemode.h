@@ -16,9 +16,15 @@ namespace dshfs
             ShareRead =         (1<<5),
             ShareWrite =        (1<<6),
 
-            r =                 Read | ShareRead,
-            rw =                Read | Write | Create,
-            w =                 Read | Write | Create | Truncate
+            Text =              (1<<7),
+
+            rb =                Read | ShareRead,
+            rwb =               Read | Write | Create,
+            wb =                Read | Write | Create | Truncate,
+            
+            rt =                rb  | Text,
+            rwt =               rwb | Text,
+            wt =                wb  | Text
         };
     }
 }

@@ -52,6 +52,9 @@
     <ClInclude Include="..\include\dshfs\filebuf.h">
       <Filter>Public\dshfs</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\textfile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\filename.cpp">
@@ -67,6 +70,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\filebuf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\textfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

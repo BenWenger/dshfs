@@ -152,6 +152,7 @@
     <ClInclude Include="..\include\dshfs\filestream.h" />
     <ClInclude Include="..\include\dshfs\filename.h" />
     <ClInclude Include="..\include\dshfs\filesystem.h" />
+    <ClInclude Include="..\src\textfile.h" />
     <ClInclude Include="..\src\windows\windows_diskfilesystem.h" />
     <ClInclude Include="..\src\windows\winheader.h" />
     <ClInclude Include="..\src\windows\windows_diskfile.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="..\src\filebuf.cpp" />
     <ClCompile Include="..\src\filename.cpp" />
     <ClCompile Include="..\src\filestream.cpp" />
+    <ClCompile Include="..\src\textfile.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfile.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfilesystem.cpp" />
   </ItemGroup>

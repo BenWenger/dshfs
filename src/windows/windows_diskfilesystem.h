@@ -14,7 +14,7 @@ namespace dshfs
 
         virtual std::string     getCurrentDirectory() const override;
 
-        virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::r) override;
+        virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::rt) override;
         
         virtual bool            isFilenameAbsolute(const std::string& filename) const override;
 

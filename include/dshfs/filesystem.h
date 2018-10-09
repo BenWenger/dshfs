@@ -17,7 +17,7 @@ namespace dshfs
 
         DLL virtual std::string     getCurrentDirectory() const = 0;
 
-        DLL virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::r) = 0;
+        DLL virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::rb) = 0;
 
         DLL virtual bool            isFilenameAbsolute(const std::string& filename) const = 0;
 
