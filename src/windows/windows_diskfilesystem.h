@@ -17,6 +17,8 @@ namespace dshfs
         virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::rt) override;
         
         virtual bool            isFilenameAbsolute(const std::string& filename) const override;
+        
+        virtual DirIterator     iterateDir(const std::string& dir) override;
 
     private:
         friend class FileSystem;

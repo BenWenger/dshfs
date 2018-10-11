@@ -5,6 +5,7 @@
 #include "filemode.h"
 #include "file.h"
 #include <iostream>
+#include "diriterator.h"
 
 namespace dshfs
 {
@@ -20,6 +21,8 @@ namespace dshfs
         DLL virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::rb) = 0;
 
         DLL virtual bool            isFilenameAbsolute(const std::string& filename) const = 0;
+
+        DLL virtual DirIterator     iterateDir(const std::string& dir) = 0;
 
     protected:
         FileSystem() = default;

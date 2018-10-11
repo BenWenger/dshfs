@@ -55,6 +55,18 @@
     <ClInclude Include="..\src\textfile.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\dshfs\diriterator.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\dshfs\fileinfo.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\dshfs\diriteratorimpl.h">
+      <Filter>Public\dshfs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\windows\windows_diriterator.h">
+      <Filter>Source Files\windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\filename.cpp">
@@ -74,6 +86,12 @@
     </ClCompile>
     <ClCompile Include="..\src\textfile.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\diriterator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\windows\windows_diriterator.cpp">
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -144,24 +144,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\include\dshfs.h" />
+    <ClInclude Include="..\include\dshfs\diriterator.h" />
+    <ClInclude Include="..\include\dshfs\diriteratorimpl.h" />
     <ClInclude Include="..\include\dshfs\error.h" />
     <ClInclude Include="..\include\dshfs\exportdefine.h" />
     <ClInclude Include="..\include\dshfs\file.h" />
     <ClInclude Include="..\include\dshfs\filebuf.h" />
+    <ClInclude Include="..\include\dshfs\fileinfo.h" />
     <ClInclude Include="..\include\dshfs\filemode.h" />
     <ClInclude Include="..\include\dshfs\filestream.h" />
     <ClInclude Include="..\include\dshfs\filename.h" />
     <ClInclude Include="..\include\dshfs\filesystem.h" />
     <ClInclude Include="..\src\textfile.h" />
+    <ClInclude Include="..\src\windows\windows_diriterator.h" />
     <ClInclude Include="..\src\windows\windows_diskfilesystem.h" />
     <ClInclude Include="..\src\windows\winheader.h" />
     <ClInclude Include="..\src\windows\windows_diskfile.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\diriterator.cpp" />
     <ClCompile Include="..\src\filebuf.cpp" />
     <ClCompile Include="..\src\filename.cpp" />
     <ClCompile Include="..\src\filestream.cpp" />
     <ClCompile Include="..\src\textfile.cpp" />
+    <ClCompile Include="..\src\windows\windows_diriterator.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfile.cpp" />
     <ClCompile Include="..\src\windows\windows_diskfilesystem.cpp" />
   </ItemGroup>

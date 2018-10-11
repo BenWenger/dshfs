@@ -175,16 +175,7 @@ namespace dshfs
 
 
         if(handle == INVALID_HANDLE_VALUE)
-        {
-            switch(GetLastError())
-            {
-            case ERROR_SHARING_VIOLATION:       throw Err::NoAccess(errprefix + "Create/Truncate/FailIfExists flags require opening with write access");
-            case ERROR_ALREADY_EXISTS:          throw Err::AlreadyExists(errprefix);
-            case ERROR_FILE_EXISTS:             throw Err::AlreadyExists(errprefix);
-            case ERROR_FILE_NOT_FOUND:          throw Err::NotFound(errprefix);
-            default:                            throw Err::Unknown(errprefix);
-            }
-        }
+            winsupport::throwLastError("When opening file '" + path + "'");
 
         auto file = std::make_unique<Windows_DiskFile>();
         file->handle = handle;

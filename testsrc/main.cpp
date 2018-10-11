@@ -39,73 +39,23 @@ int main()
     srand( (unsigned)time(nullptr) );
     try
     {
-        auto a = readFullTextFile("textmode_a.txt");
-        auto b = readFullTextFile("textmode_b.txt");
-        auto c = readFullTextFile("textmode_c.txt");
-
-        if(a == b && b == c)
-            std::cout << "SUCCESS!!!!";
-        else
-            std::cout << "FAILURE!!!!!";
-
-        std::cout << "\n\n" << a << std::endl;
-        
-        
-        /*
-        auto file = fs.openFile("test.txt");
-        char utf8name[40];
-        auto len = file->read(utf8name, 39);
-        utf8name[len] = '\0';
-
-
-        file = fs.openFile(utf8name);
-        char dat[100];
-        len = file->read(dat, 99);
-        dat[len] = '\0';
-
-        std::cout << "Success:  " << dat;*/
-        /*
-        std::string things[4];
-        int pages[4] = {0,1,2,3};
-        std::random_shuffle(pages, pages+4);
-        int tells[4];
-        
-        FileStream f("tester.txt", FileMode::rt);
-
-        for(int page : pages)
+        std::string fn;
+        auto i = fs.iterateDir("C:/Users/benwe/Desktop/C++/Projects/dshfs/");
+        while(i)
         {
-            f.seekg(page * 8);
-            getline(f, things[page]);
-            tells[page] = static_cast<int>(f.tellg());
+            fn = i->fileName;
+            std::cout << fn;
+            if(i->isDir())
+                std::cout << '/';
+            std::cout << '\n';
+            ++i;
         }
-
-        for(int i = 0; i < 4; ++i)
-        {
-            std::cout << things[i] << "   " << tells[i] << std::endl;
-        }*/
-        
         /*
-        std::string str;
-        f.seekg(9);
-        //f << "This is a test\n" << 168 << " - " << std::hex << (128+0xA) << std::endl;
-        while(getline(f, str))
+        FileStream f(fn,FileMode::rt);
+        std::string s;
+        while(std::getline(f, s))
         {
-            std::cout << str << '\n';
-        }
-        std::cout << ">>EOF<<" << std::endl;*/
-        /*
-        CopyFileA("tester.txt", "thistest.txt", FALSE);
-        CopyFileA("tester.txt", "thistest_control.txt", FALSE);
-
-        FileStream file("thistest.txt", FileMode::rwt);
-        std::fstream ctrl("thistest_control.txt", std::ios_base::in | std::ios_base::out);
-        if(ctrl.good())
-            std::cout << "This is good!\n";
-
-        for(int i = 0; i < 2; ++i)
-        {
-            doStringTransform(file);
-            //doStringTransform(ctrl);
+            std::cout << s << std::endl;
         }*/
     }
     catch(Error& e)

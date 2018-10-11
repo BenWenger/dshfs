@@ -10,6 +10,7 @@
 #include <Windows.h>
 #include <string>
 #include "dshfs.h"
+#include "dshfs/error.h"
 
 namespace dshfs
 {
@@ -53,6 +54,23 @@ namespace dshfs
                     i = L'/';
             }
             return wideToNarrow(fn);
+        }
+
+        inline void throwError(DWORD e, const std::string& msg)
+        {
+            switch(e)
+            {
+            case ERROR_SHARING_VIOLATION:       throw Err::NoAccess(msg);
+            case ERROR_ALREADY_EXISTS:          throw Err::AlreadyExists(msg);
+            case ERROR_FILE_EXISTS:             throw Err::AlreadyExists(msg);
+            case ERROR_FILE_NOT_FOUND:          throw Err::NotFound(msg);
+            default:                            throw Err::Unknown(msg);
+            }
+        }
+
+        inline void throwLastError(const std::string& msg)
+        {
+            throwError(GetLastError(), msg);
         }
     }
 }

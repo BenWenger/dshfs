@@ -29,6 +29,7 @@ namespace dshfs
         DSHFS_MAKE_ERROR_SUBCLASS(NotFound,         "File not found.");
         DSHFS_MAKE_ERROR_SUBCLASS(Unknown,          "Unknown error.");
         DSHFS_MAKE_ERROR_SUBCLASS(BadParams,        "Bad parameters passed to function call.");
+        DSHFS_MAKE_ERROR_SUBCLASS(BadState,         "Object was not ready to be used.");
     }
 
 #undef DSHFS_MAKE_ERROR_SUBCLASS

@@ -3,6 +3,7 @@
 #include "windows_diskfile.h"
 #include "dshfs/error.h"
 #include "../textfile.h"
+#include "windows_diriterator.h"
 
 namespace dshfs
 {
@@ -47,6 +48,11 @@ namespace dshfs
     {
         if(filename.length() < 2)   return false;
         return filename[1] == ':';
+    }
+
+    DirIterator Windows_DiskFileSystem::iterateDir(const std::string& dir)
+    {
+        return DirIterator( std::make_unique<Windows_DirIterator>(dir) );
     }
 }
 
