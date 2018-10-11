@@ -16,10 +16,10 @@ namespace dshfs
         Error& operator = (const Error&) = default;
     };
 
-#define DSHFS_MAKE_ERROR_SUBCLASS(ClassName, msg)                                       \
-    class ClassName : public Error {                                                    \
-        public:                                                                         \
-            explicit ClassName(const std::string& whatarg="") : Error(msg + whatarg) {} \
+#define DSHFS_MAKE_ERROR_SUBCLASS(ClassName, msg)                                               \
+    class ClassName : public Error {                                                            \
+        public:                                                                                 \
+            explicit ClassName(const std::string& whatarg="") : Error(msg + ("  " + whatarg)) {}\
     }
 
     namespace Err

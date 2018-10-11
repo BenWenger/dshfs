@@ -39,8 +39,16 @@ int main()
     srand( (unsigned)time(nullptr) );
     try
     {
+        Filename fn;
+        fn.set("C:/This/is/a/test/example.file");
+        
+        Filename fn2;
+        fn2.set("/Is/This/An/Absolute/Directory/");
+
+        std::cout << "buuuuuut" << std::endl;
+        /*
         std::string fn;
-        auto i = fs.iterateDir("C:/Users/benwe/Desktop/C++/Projects/dshfs/");
+        auto i = fs.iterateDir("..");
         while(i)
         {
             fn = i->fileName;
@@ -49,7 +57,7 @@ int main()
                 std::cout << '/';
             std::cout << '\n';
             ++i;
-        }
+        }*/
         /*
         FileStream f(fn,FileMode::rt);
         std::string s;

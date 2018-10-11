@@ -64,7 +64,8 @@ namespace dshfs
             case ERROR_ALREADY_EXISTS:          throw Err::AlreadyExists(msg);
             case ERROR_FILE_EXISTS:             throw Err::AlreadyExists(msg);
             case ERROR_FILE_NOT_FOUND:          throw Err::NotFound(msg);
-            default:                            throw Err::Unknown(msg);
+            default:
+                throw Err::Unknown(msg);
             }
         }
 
