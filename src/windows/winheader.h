@@ -34,7 +34,10 @@ namespace dshfs
 
         inline std::wstring makeWindowsFullPathName(const std::string& fn)
         {
-            auto out = narrowToWide(Filename::makeAbsolute(fn));
+            Filename fnobj(fn);
+            if(!fnobj.fullResolve())
+                throw Err::NotFound("Too many '..'s in directory.  Could not resolve");
+            auto out = narrowToWide(fnobj.getFullPath());
             for(auto& i : out)
             {
                 if(i == L'/')

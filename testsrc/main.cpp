@@ -39,13 +39,16 @@ int main()
     srand( (unsigned)time(nullptr) );
     try
     {
-        Filename fn;
-        fn.set("C:/This/is/a/test/example.file");
-        
-        Filename fn2;
-        fn2.set("/Is/This/An/Absolute/Directory/");
+        Filename dots;
+        dots.setFullPath("C:/This/./has/../../some/dots/../confuse.txt/./wat/example.txt");
+        dots.fullResolve();
 
-        std::cout << "buuuuuut" << std::endl;
+        std::cout << dots.getFullPath() << std::endl;
+
+        FileStream fs("../README.md");
+        std::string s;
+        while(getline(fs,s))
+            std::cout << s << '\n';
         /*
         std::string fn;
         auto i = fs.iterateDir("..");

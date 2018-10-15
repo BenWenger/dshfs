@@ -7,10 +7,11 @@ namespace dshfs
     
     Windows_DirIterator::Windows_DirIterator(std::string path)
     {
-        path = Filename::makeAbsolute(path);
-        if(path.back() != '/')
-            path.push_back('/');
-        path.push_back('*');
+        Filename fn;
+        fn.setPathPart(path);
+        if(!fn.fullResolve())
+            throw Err::NotFound("Too many '..'s in directory name.  Can't resolve.");
+        path = fn.getPathPart() + "*";
 
         auto winpath = winsupport::makeWindowsFullPathName(path);
         handle = FindFirstFileW( winpath.c_str(), &data );

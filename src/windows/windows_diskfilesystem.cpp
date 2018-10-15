@@ -44,7 +44,7 @@ namespace dshfs
         return file;
     }
     
-    bool Windows_DiskFileSystem::isFilenameAbsolute(const std::string& filename) const
+    bool Windows_DiskFileSystem::isAbsolute(const std::string& filename) const
     {
         if(filename.length() < 2)   return false;
         return filename[1] == ':';

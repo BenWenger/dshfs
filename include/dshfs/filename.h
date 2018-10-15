@@ -3,31 +3,40 @@
 
 #include <string>
 #include <vector>
+#include "dshfs/filesystem.h"
 
 namespace dshfs
 {
-
     class Filename
     {
     public:
+        DLL                     Filename() = default;
+        DLL                     Filename(const std::string& fullpath)       { setFullPath(fullpath);        }
 
-        DLL static bool         isAbsolute(const std::string& path);
-        DLL static std::string  makeAbsolute(const std::string& path);
+        DLL std::string         getFullPath() const                         { return path + getFullName();  }
+        DLL std::string         getPathPart() const                         { return path;                  }
+        DLL std::string         getFullName() const;
+        DLL std::string         getTitle() const                            { return title;                 }
+        DLL std::string         getExt() const                              { return ext;                   }
 
-        DLL Filename() = default;
-        DLL Filename(const std::string& fullpath)                                                   { set(fullpath);            }
-        DLL Filename(const std::string& path, const std::string& name)                              { set(path, name);          }
-        DLL Filename(const std::string& path, const std::string& name, const std::string& ext)      { set(path, name, ext);     }
-        
-        DLL void clear();
-        DLL void set(const std::string& fullpath);
-        DLL void set(const std::string& path, const std::string& name);
-        DLL void set(const std::string& path, const std::string& name, const std::string& ext);
+        DLL void                setFullPath(const std::string& v);
+        DLL void                setPathPart(const std::string& v);
+        DLL void                setFullName(const std::string& v);
+        DLL void                setTitle(const std::string& v)              { title = v;                    }
+        DLL void                setExt(const std::string& v)                { ext = v;                      }
 
-        DLL void setFileName(const std::string& fn);
+        DLL bool                resolveDots()                               { return privateResolveDots(path);                  }
+        DLL void                makeAbsolute()                              { makeAbsolute(FileSystem::getInstance());          }
+        DLL void                makeAbsolute(FileSystem& fsys)              { path = fsys.makeAbsolute(path);                   }
+        DLL bool                fullResolve()                               { return fullResolve(FileSystem::getInstance());    }
+        DLL bool                fullResolve(FileSystem& fsys);
+
+        DLL static bool         fullResolve(std::string& path, FileSystem& fsys);
+        DLL static bool         fullResolve(std::string& path)              { return fullResolve(path, FileSystem::getInstance());  }
 
     private:
-        std::vector<std::string>    paths;
+        static bool                 privateResolveDots(std::string& v);
+        std::string                 path;           // Must end in '/' unless its empty!
         std::string                 title;
         std::string                 ext;
     };
