@@ -36,6 +36,7 @@ std::string readFullTextFile(const std::string& filename)
 
 int main()
 {
+    fs.getExecutablePath();
     srand( (unsigned)time(nullptr) );
     try
     {

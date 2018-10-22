@@ -16,16 +16,16 @@ namespace dshfs
         typedef std::int64_t            pos_t;
         enum class Origin               { Set, Cur, End };
 
-        DLL virtual ~File()     {}
-        DLL virtual void        close() = 0;
-        DLL virtual bool        isOpen() const = 0;
-        DLL virtual bool        isReadable() const = 0;
-        DLL virtual bool        isWritable() const = 0;
-        DLL virtual pos_t       read(void* buf, pos_t size) = 0;
-        DLL virtual pos_t       write(const void* buf, pos_t size) = 0;
+        DSHFS_API virtual ~File()     {}
+        DSHFS_API virtual void        close() = 0;
+        DSHFS_API virtual bool        isOpen() const = 0;
+        DSHFS_API virtual bool        isReadable() const = 0;
+        DSHFS_API virtual bool        isWritable() const = 0;
+        DSHFS_API virtual pos_t       read(void* buf, pos_t size) = 0;
+        DSHFS_API virtual pos_t       write(const void* buf, pos_t size) = 0;
         
-        DLL virtual pos_t       seek(pos_t pos, Origin origin = Origin::Set) = 0;
-        DLL virtual pos_t       tell() const = 0;
+        DSHFS_API virtual pos_t       seek(pos_t pos, Origin origin = Origin::Set) = 0;
+        DSHFS_API virtual pos_t       tell() const = 0;
 
     protected:
         File() = default;

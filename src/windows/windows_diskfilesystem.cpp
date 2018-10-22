@@ -54,6 +54,26 @@ namespace dshfs
     {
         return DirIterator( std::make_unique<Windows_DirIterator>(dir) );
     }
+    
+    std::string Windows_DiskFileSystem::getExecutablePath() const
+    {
+        // GetModuleFileName sucks
+        std::wstring            path(MAX_PATH,L'\0');
+        std::size_t result;
+        while(true)
+        {
+            result = static_cast<size_t>( GetModuleFileNameW(nullptr, &path[0], path.size()) );
+            if(GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+                path.resize(path.size() * 2);
+            else
+            {
+                path.resize(result);
+                break;
+            }
+        }
+
+        return winsupport::fromWindowsName(path);
+    }
 }
 
 #endif

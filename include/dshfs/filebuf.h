@@ -11,15 +11,15 @@ namespace dshfs
     class FileBuf : public std::filebuf
     {
     public:
-        DLL FileBuf(const std::string& path, int mode);
-        DLL ~FileBuf();
+        DSHFS_API FileBuf(const std::string& path, int mode);
+        DSHFS_API ~FileBuf();
 
     protected:
-        DLL virtual int_type    underflow() override;
-        DLL virtual int_type    overflow(int_type ch) override;
-        DLL virtual int_type    sync() override;
-        DLL virtual pos_type    seekoff(off_type off, std::ios_base::seekdir dir, std::ios_base::openmode);
-        DLL virtual pos_type    seekpos(pos_type pos, std::ios_base::openmode);
+        DSHFS_API virtual int_type    underflow() override;
+        DSHFS_API virtual int_type    overflow(int_type ch) override;
+        DSHFS_API virtual int_type    sync() override;
+        DSHFS_API virtual pos_type    seekoff(off_type off, std::ios_base::seekdir dir, std::ios_base::openmode);
+        DSHFS_API virtual pos_type    seekpos(pos_type pos, std::ios_base::openmode);
 
     private:
         FileBuf(const FileBuf&) = delete;

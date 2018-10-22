@@ -6,15 +6,15 @@
 
 #ifdef DSHFS_LIBRARY_BUILD
     #ifdef _WIN32
-        #define DLL     __declspec(dllexport)
+        #define DSHFS_API   __declspec(dllexport)
     #else
-        #define DLL
+        #define DSHFS_API
     #endif
 #else
     #ifdef _WIN32
-        #define DLL     __declspec(dllimport)
+        #define DSHFS_API   __declspec(dllimport)
     #else
-        #define DLL
+        #define DSHFS_API
     #endif
 #endif
 

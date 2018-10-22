@@ -12,22 +12,24 @@ namespace dshfs
     class FileSystem
     {
     public:
-        DLL virtual                 ~FileSystem() {}
+        DSHFS_API virtual               ~FileSystem() {}
 
-        DLL static FileSystem&      getInstance();
+        DSHFS_API static FileSystem&    getInstance();
 
-        DLL virtual std::string     getCurrentDirectory() const = 0;
+        DSHFS_API virtual std::string   getCurrentDirectory() const = 0;
 
-        DLL virtual File::Ptr       openFile(const std::string& path, int mode = FileMode::rb) = 0;
+        DSHFS_API virtual File::Ptr     openFile(const std::string& path, int mode = FileMode::rb) = 0;
 
-        DLL virtual bool            isAbsolute(const std::string& path) const = 0;
-        DLL virtual std::string     makeAbsolute(const std::string& path) const
+        DSHFS_API virtual bool          isAbsolute(const std::string& path) const = 0;
+        DSHFS_API virtual std::string   makeAbsolute(const std::string& path) const
         {
             if(isAbsolute(path))    return path;
             else                    return getCurrentDirectory() + path;
         }
 
-        DLL virtual DirIterator     iterateDir(const std::string& dir) = 0;
+        DSHFS_API virtual DirIterator   iterateDir(const std::string& dir) = 0;
+
+        DSHFS_API virtual std::string   getExecutablePath() const = 0;
 
     protected:
         FileSystem() = default;
@@ -38,7 +40,7 @@ namespace dshfs
         FileSystem& operator = (FileSystem&&) = delete;
     };
 
-    DLL extern FileSystem&      fs;
+    DSHFS_API extern FileSystem&      fs;
 }
 
 

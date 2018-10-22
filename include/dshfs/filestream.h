@@ -11,8 +11,8 @@ namespace dshfs
     class FileStream : public std::iostream
     {
     public:
-        DLL FileStream(const std::string& path, int mode = FileMode::rt);
-        DLL virtual ~FileStream();
+        DSHFS_API           FileStream(const std::string& path, int mode = FileMode::rt);
+        DSHFS_API virtual   ~FileStream();
 
     private:
         FileBuf*            buffer;

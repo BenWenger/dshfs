@@ -14,26 +14,26 @@ namespace dshfs
     public:
         typedef std::unique_ptr<DirIteratorImpl>        impl_t;
 
-        DLL DirIterator() = default;
-        DLL ~DirIterator();
-        DLL operator bool() const;
-        DLL const FileInfo& get() const;
-        DLL const FileInfo& operator * () const     { return get();     }
-        DLL const FileInfo* operator -> () const    { return &get();    }
-        DLL DirIterator& operator ++ ();
+        DSHFS_API DirIterator() = default;
+        DSHFS_API ~DirIterator();
+        DSHFS_API operator bool() const;
+        DSHFS_API const FileInfo& get() const;
+        DSHFS_API const FileInfo& operator * () const     { return get();     }
+        DSHFS_API const FileInfo* operator -> () const    { return &get();    }
+        DSHFS_API DirIterator& operator ++ ();
         
-        DLL DirIterator(DirIterator&&) = default;
-        DLL DirIterator& operator = (DirIterator&&) = default;
+        DSHFS_API DirIterator(DirIterator&&) = default;
+        DSHFS_API DirIterator& operator = (DirIterator&&) = default;
 
-        DLL DirIterator(impl_t&& impl);
+        DSHFS_API DirIterator(impl_t&& impl);
 
     private:
         impl_t                      iter;
         FileInfo                    info;
 
         // no copying
-        DLL DirIterator(const DirIterator&) = delete;
-        DLL DirIterator& operator = (const DirIterator&) = delete;
+        DSHFS_API DirIterator(const DirIterator&) = delete;
+        DSHFS_API DirIterator& operator = (const DirIterator&) = delete;
     };
 }
 

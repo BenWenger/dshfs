@@ -19,6 +19,8 @@ namespace dshfs
         virtual bool            isAbsolute(const std::string& filename) const override;
         
         virtual DirIterator     iterateDir(const std::string& dir) override;
+        
+        virtual std::string     getExecutablePath() const override;
 
     private:
         friend class FileSystem;
