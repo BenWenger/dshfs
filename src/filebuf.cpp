@@ -124,4 +124,18 @@ namespace dshfs
         setg(nullptr,nullptr,nullptr);
         curMode = Mode::Neutral;
     }
+
+    
+    //////////////////////////////////////
+    std::streamsize FileBuf::xsgetn(char* buf, std::streamsize count)
+    {
+        if(!flushAll())     return 0;
+        return static_cast<std::streamsize>( file->read(buf, static_cast<File::pos_t>(count)) );
+    }
+    
+    std::streamsize FileBuf::xsputn(const char* buf, std::streamsize count)
+    {
+        if(!flushAll())     return 0;
+        return static_cast<std::streamsize>( file->write(buf, static_cast<File::pos_t>(count)) );
+    }
 }

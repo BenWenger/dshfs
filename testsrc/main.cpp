@@ -40,6 +40,26 @@ int main()
     srand( (unsigned)time(nullptr) );
     try
     {
+        const char* filename = "E:/Projects/bodobon/bodoasm/lua/6502.lua";
+
+        std::string s;
+        FileStream strm(filename);
+        //std::ifstream strm(filename);
+        while(true)
+        {
+            s.clear();
+            s.resize(1025, '\0');
+            strm.read(&s[0], 1024);
+            s.resize( static_cast<size_t>(strm.gcount()) );
+            std::cout << s.c_str();
+
+            if(strm.gcount() <= 0)
+                break;
+        };
+
+        std::cout << "\n\n\ndone\n";
+
+        /*
         Filename dots;
         dots.setFullPath("C:/This/./has/../../some/dots/../confuse.txt/./wat/example.txt");
         dots.fullResolve();
@@ -49,26 +69,7 @@ int main()
         FileStream fs("../README.md");
         std::string s;
         while(getline(fs,s))
-            std::cout << s << '\n';
-        /*
-        std::string fn;
-        auto i = fs.iterateDir("..");
-        while(i)
-        {
-            fn = i->fileName;
-            std::cout << fn;
-            if(i->isDir())
-                std::cout << '/';
-            std::cout << '\n';
-            ++i;
-        }*/
-        /*
-        FileStream f(fn,FileMode::rt);
-        std::string s;
-        while(std::getline(f, s))
-        {
-            std::cout << s << std::endl;
-        }*/
+            std::cout << s << '\n';*/
     }
     catch(Error& e)
     {

@@ -15,11 +15,13 @@ namespace dshfs
         DSHFS_API ~FileBuf();
 
     protected:
-        DSHFS_API virtual int_type    underflow() override;
-        DSHFS_API virtual int_type    overflow(int_type ch) override;
-        DSHFS_API virtual int_type    sync() override;
-        DSHFS_API virtual pos_type    seekoff(off_type off, std::ios_base::seekdir dir, std::ios_base::openmode);
-        DSHFS_API virtual pos_type    seekpos(pos_type pos, std::ios_base::openmode);
+        DSHFS_API virtual int_type          underflow() override;
+        DSHFS_API virtual int_type          overflow(int_type ch) override;
+        DSHFS_API virtual int_type          sync() override;
+        DSHFS_API virtual pos_type          seekoff(off_type off, std::ios_base::seekdir dir, std::ios_base::openmode) override;
+        DSHFS_API virtual pos_type          seekpos(pos_type pos, std::ios_base::openmode) override;
+        DSHFS_API virtual std::streamsize   xsgetn(char* buf, std::streamsize count) override;
+        DSHFS_API virtual std::streamsize   xsputn(const char* buf, std::streamsize count) override;
 
     private:
         FileBuf(const FileBuf&) = delete;
