@@ -58,7 +58,7 @@ namespace dshfs
 
         while(size > 0)
         {
-            auto block = srcFile->read(buf,size);
+            auto block = srcFile->read(dst,size);
             if(block <= 0)          break;
 
             block = convertBlock(dst, block);
