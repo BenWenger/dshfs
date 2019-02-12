@@ -34,8 +34,11 @@ namespace dshfs
         DSHFS_API static bool   fullResolve(std::string& path, FileSystem& fsys);
         DSHFS_API static bool   fullResolve(std::string& path)              { return fullResolve(path, FileSystem::getInstance());  }
 
+        DSHFS_API static std::string normalizeSlash(const std::string& path);
+
     private:
         static bool                 privateResolveDots(std::string& v);
+        void                        cleanPathSlash();
         std::string                 path;           // Must end in '/' unless its empty!
         std::string                 title;
         std::string                 ext;

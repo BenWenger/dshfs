@@ -1,51 +1,65 @@
 
 #include "dshfs.h"
 
-#include <iostream>     // TODO remove this
-
 namespace dshfs
 {
+    std::string Filename::normalizeSlash(const std::string& path)
+    {
+        std::string out = path;
+        for(auto& i : out)
+        {
+            if(i == '\\')
+                i = '/';
+        }
+        return out;
+    }
+
     std::string Filename::getFullName() const
     {
         if(ext.empty())         return title;
         else                    return title + ext;
     }
 
-    void Filename::setFullName(const std::string& v)
+    void Filename::setFullName(const std::string& name)
     {
-        auto dot = v.rfind('.');
-        if(dot == 0 || dot == v.npos || dot == v.length()-1)
+        auto str = normalizeSlash(name);
+        auto pos = str.rfind('/');
+        if(pos != str.npos)
         {
-            title = v;
+            path = path + str.substr(0, pos+1);
+            str = str.substr(pos+1);
+        }
+
+        pos = str.rfind('.');
+        if(pos == 0 || pos == str.npos || pos == str.length()-1)
+        {
+            setTitle(str);
             ext.clear();
         }
         else
         {
-            title = v.substr(0,dot);
-            ext = v.substr(dot);
+            setTitle(str.substr(0,pos));
+            setExt(str.substr(pos));
         }
     }
 
     void Filename::setPathPart(const std::string& v)
     {
         path = v;
-        if(!v.empty() && v.back() != '/')
+        cleanPathSlash();
+    }
+    
+    void Filename::cleanPathSlash()
+    {
+        path = normalizeSlash(path);
+        if(!path.empty() && path.back() != '/')
             path.push_back('/');
     }
 
-    void Filename::setFullPath(const std::string& v)
+    void Filename::setFullPath(const std::string& fullpath)
     {
-        auto pos = v.rfind('/');
-        if(pos == v.npos)
-        {
-            path.clear();
-            setFullName(v);
-        }
-        else
-        {
-            path = v.substr(0, pos+1);
-            setFullName(v.substr(pos+1));
-        }
+        path.clear();
+        setFullName(fullpath);
     }
     
     bool Filename::fullResolve(FileSystem& fsys)
@@ -55,6 +69,7 @@ namespace dshfs
             return false;
 
         path = tmp;
+        cleanPathSlash();
         return true;
     }
 
